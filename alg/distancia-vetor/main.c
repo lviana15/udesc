@@ -17,6 +17,9 @@ int main () {
       break;
     } else {
       distancia_N = N - V[i];
+      if (distancia_i == distancia_N) {
+        printf("Mais proximo %i posicao %i")
+      }
     } 
   }
 } 
