@@ -1,7 +1,7 @@
 import Data.Char
 
 pertence x [] = False
-pertence x (y: ys) = if x == y then True else pertence x ys
+pertence x (y:ys) = if x == y then True else pertence x ys
 
 intersecao [] _ = []
 intersecao (x:xs) (y:ys) = if pertence x (y:ys) then x : intersecao xs (y:ys) else intersecao xs ys
