@@ -21,14 +21,14 @@ int main() {
   scanf("%i", &n);
 
   if (verifiy_prime(n))
-    printf("%i é um número primo\n", n);
+    printf("%i é um número primo\n\n", n);
   else 
-    printf("%i não é um número primo\n", n);
+    printf("%i não é um número primo\n\n", n);
 
   printf("Números primos até %i:\n\n", n);
   for(int i = 2; i < n; i++) {
     if (verifiy_prime(i)){
-      printf("%i \t", i); 
+      printf("%i\t", i); 
       count++;
     }
   }
@@ -42,7 +42,7 @@ int main() {
   while (i >= 1) {
     while (1){
       if (verifiy_prime(j)) {
-        printf("\t%i", j);
+        printf("%i\t", j);
         j++;
         break;
       }
