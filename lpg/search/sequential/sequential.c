@@ -18,6 +18,5 @@ int main() {
   else 
     printf("Valor na posicao: %d", posicao+1 );
   
-
   return 0;
 }
