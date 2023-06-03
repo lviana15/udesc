@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-void frente(int vet[], int n, int i, int v){
+void frente(int vet[], int * n, int i, int v){
   int condicao = 1, j = i;
   while (condicao) {
-    if((j <= n) && (v > 0)){
+    if((j <= *n) && (v > 0)){
       vet[j] = vet[j] + v;
       j++;
       v--;
@@ -13,7 +13,7 @@ void frente(int vet[], int n, int i, int v){
   }
 }
 
-void tras(int vet[], int n, int i, int v){
+void tras(int vet[], int * n, int i, int v){
   int condicao = 1, j = i;
   while (condicao) {
     if((j >= 1) && (v > 0)){
@@ -26,7 +26,7 @@ void tras(int vet[], int n, int i, int v){
   }
 }
 
-void imprime(int vet[], int n, int i){
+void imprime(int vet[], int i){
   printf("%d\n", vet[i]);
 }
 
@@ -41,44 +41,41 @@ void printa(int vet[], int n){
 
 int main() {
   int vetor[200000];
-  int comando, i, v, n, m;
+  int continua = 1, comando, controle = 0, i, v, n, m;
 
   printf("Tamanho do vetor (N) e Quantidade de Instruções(M):\n");
   scanf("%d %d", &n, &m);
   
-  /*
-  frente(vetor, n, 4, 8);
-  tras(vetor, n, 16, 3);
-  tras(vetor, n, 2, 12);
-  frente(vetor, n, 8, 7);
-  printa(vetor, n);
-  */
-
-  while(m >= 1) {
-    scanf("%d %d %d", &comando, &i, &v);
+  while((controle < m) && (continua == 1)) {
+    scanf("%d", &comando);
 
     switch (comando) {
       case 1:
-        frente(vetor, n, i, v);
+        scanf ("%d %d", &i, &v);
+        frente(vetor, &n, i, v);
         break;
+
       case 2:
-        tras(vetor, n, i, v);
+        scanf ("%d %d", &i, &v);
+        tras(vetor, &n, i, v);
         break;
+
       case 3:
-        imprime(vetor, n, i);
+        scanf ("%d", &i);
+        imprime(vetor, i);
         break;
+
       case 4:
-        return 0;
+        continua = 0;
         break;
+
       default:
         printf("Entrada invalida");
         break;
-      }
+    }
 
-    m--;
+    controle++;
   }
-
-  printa(vetor, n);
 
   return 0;
 }
