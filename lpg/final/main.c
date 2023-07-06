@@ -21,52 +21,67 @@ typedef struct {
   char local[20];
 } Evento;
 
-void le_data(Data *data){
+Data* le_data(void){
+  Data *data;
+  data = malloc(sizeof(Data));
   printf("Digite data (DD/MM/AAAA):\n");
   scanf("%d", &data->dia); 
   scanf("%d", &data->mes); 
   scanf("%d", &data->ano); 
+  return data;
 };
 
-int verifica_data(Data *data_a, Data *data_b){
-  if((data_a->dia == data_b->dia) && (data_a->mes == data_b->mes) && (data_a->ano == data_b->ano))
+int verifica_data(Data data_a, Data data_b){
+  if((data_a.dia == data_b.dia) && (data_a.mes == data_b.mes) && (data_a.ano == data_b.ano))
     return 1;
   return 0;
 }
 
-int verifica_horario(Horario *horario_a, Horario *horario_b) {
-  if((horario_a->hora == horario_b->hora) && (horario_a->minuto == horario_b->minuto))
+int verifica_horario(Horario horario_a, Horario horario_b) {
+  if((horario_a.hora == horario_b.hora) && (horario_a.minuto == horario_b.minuto))
     return 1;
   return 0;
 }
 
-void le_horario(Horario *horario) {
-  scanf("%d", &horario->hora);
-  scanf("%d", &horario->minuto);
+Horario* le_horario(void) {
+  Horario *horario;
+  horario = malloc(sizeof(Horario));
+
+  do {
+    printf("Digite a hora (entre 0 e 23): ");
+    scanf("%d", &horario->hora);
+  } while (horario->hora < 0 || horario->hora > 23);
+
+  do {
+    printf("Digite os minutos (entre 0 e 59): ");
+    scanf("%d", &horario->minuto);
+  } while (horario->minuto < 0 || horario->minuto > 59);
+
+  return horario;
 }
 
-void le_evento(Evento *evento) {
-  evento->data_jogo = malloc(sizeof(Data));
-  evento->horario_inicio = malloc(sizeof(Horario));
-  evento->horario_fim = malloc(sizeof(Horario));
+Evento le_evento(void) {
+  Evento novo_evento;
+  
+  novo_evento.data_jogo = le_data();
 
-  le_data(evento->data_jogo);
+  printf("Digite horario de inicio:\n");
+  novo_evento.horario_inicio = le_horario();
 
-  printf("Digite horario de inicio (HH:MM):\n");
-  le_horario(evento->horario_inicio);
-
-  printf("Digite horario de fim (HH:MM):\n");
-  le_horario(evento->horario_fim);
+  printf("Digite horario de fim:\n");
+  novo_evento.horario_fim = le_horario();
 
   int c;
   while ((c = getchar()) != '\n' && c != EOF) {}
   printf("Digite a descrição do evento:\n");
-  fgets(evento->descricao, 10, stdin); 
+  fgets(novo_evento.descricao, 10, stdin); 
 
   fflush(stdin);
   printf("Digite o local do evento:\n");
-  fgets(evento->local, 20, stdin); 
-}
+  fgets(novo_evento.local, 20, stdin); 
+
+  return novo_evento;
+};
 
 void printa_data(Data *data) {
   printf("%02d/%02d/%4d\n", data->dia, data->mes, data->ano);
@@ -77,6 +92,7 @@ void printa_horario(Horario *horario) {
 };
 
 void printa_evento(Evento *evento) {
+  printf("\n");
   printa_data(evento->data_jogo);
   printa_horario(evento->horario_inicio);
   printf("%s", evento->descricao);
@@ -85,12 +101,9 @@ void printa_evento(Evento *evento) {
 
 
 Evento* adiciona_evento(Evento *jogos, int *jogos_count) {
-  Evento *novo_jogo;
-
   (*jogos_count)++;
   jogos = realloc(jogos, (sizeof(Evento) * *jogos_count));
-  le_evento(novo_jogo);
-
+  jogos[*jogos_count-1] = le_evento();
 
   return jogos;
 };
@@ -101,47 +114,54 @@ int main() {
   
   jogos = malloc(sizeof(Evento) * jogos_count);
   while(valido == 1) {
+    printf("\n");
     printf("Escolha uma opção:\n");
     printf("1- Cadastrar novo evento\n");
     printf("2- Mostrar todos eventos\n");
     printf("3- Mostrar eventos em data\n");
     printf("4- Mostart eventos com descricao\n");
     printf("5- Remover evento\n");
+    scanf("%d", &escolha);
 
     switch(escolha) {
       case 1:
+        jogos = adiciona_evento(jogos, &jogos_count);
         break; 
 
       case 2:
         if(jogos_count > 0) {
-          for(i = 0;i <= jogos_count;i++)
+          for(i = 0;i < jogos_count;i++)
             printa_evento(&jogos[i]);
         } else {
-          printf("Lista de jogos vazia.");
+          printf("Lista de jogos vazia.\n");
         }
         break;
 
       case 3:
         if(jogos_count > 0) {
           Data *data_pesquisa;
-          le_data(data_pesquisa);
-          for(i = 0;i <= jogos_count;i++){
-            if(verifica_data(jogos[i].data_jogo, data_pesquisa))
+          data_pesquisa = le_data();
+          for(i = 0;i < jogos_count;i++){
+            if(verifica_data(*jogos[i].data_jogo, *data_pesquisa))
               printa_evento(&jogos[i]);
           }
-          free(data_pesquisa);
+        } else {
+          printf("Lista de jogos vazia.\n");
         }
         break;
 
       case 4:
         if(jogos_count > 0) {
           char desc_pesquisa[10]; 
-          printf("Digite a descricao que deseja buscar:\n");
+          printf("Digite a descricao que deseja buscar:");
+          fflush(stdin);
           fgets(desc_pesquisa, 10, stdin);
-          for(i = 0;i <= jogos_count;i++){
+          for(i = 0;i < jogos_count;i++){
             if(strcmp(jogos[i].descricao, desc_pesquisa) == 0)
               printa_evento(&jogos[i]);
           }
+        } else {
+          printf("Lista de jogos vazia.\n");
         }
         break;
 
@@ -150,13 +170,41 @@ int main() {
           Data *data_exclusao;
           Horario *horario_exclusao;
           printf("Digite que evento deseja excluir:");
-          le_data(data_exclusao);
-          le_horario(horario_exclusao);
+          data_exclusao = le_data();
+          printf("Digite horario do evento:");
+          horario_exclusao = le_horario();
 
-          for(i = 0;i <= jogos_count;i++){
-            if(verifica_data(jogos[i].data_jogo, data_exclusao) && verifica_horario(jogos[i].horario_inicio, horario_exclusao)){}
+          int index_remover = -1;
+          for(i = 0;i < jogos_count;i++){
+            if(verifica_data(*jogos[i].data_jogo, *data_exclusao) && verifica_horario(*jogos[i].horario_inicio, *horario_exclusao)){
+              index_remover = i;
+            }
           }
+
+          if(index_remover != -1) {
+            free(jogos[index_remover].data_jogo);
+            free(jogos[index_remover].horario_inicio);
+            free(jogos[index_remover].horario_fim);
+
+            for (i = index_remover; i < jogos_count - 1; i++) {
+                jogos[i] = jogos[i + 1];
+            }
+
+            jogos_count--;
+            jogos = realloc(jogos, sizeof(Evento) * jogos_count);
+          } else {
+            printf("Evento não encontrado.\n");
+          }
+
+        } else {
+          printf("Lista vazia.\n");
         }
+        break;
+
+      default:
+        printf("Opção Invalida");
+        valido = 0;
+      break;
     }
   }
 
