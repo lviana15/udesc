@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Media {
+public class Pratica1 {
 	public static void main(String[] args) {
         int[] arr = new int[5];
         int sum = 0;
@@ -10,6 +10,7 @@ public class Media {
         for(int i = 0;i < 5;i++){
             arr[i] = Integer.parseInt(in.nextLine());
         }
+        in.close();
 
         for(int i = 0;i < 5;i++){
             sum += arr[i];
