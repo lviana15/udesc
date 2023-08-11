@@ -3,7 +3,7 @@ package dados;
 public class Dono {
     private String nome;
     private Endereco endereco;
-    private int cpf;
+    private String cpf;
 
     public String getNome(){
         return this.nome;
@@ -13,7 +13,7 @@ public class Dono {
         return this.endereco;
     }
 
-    public int getCpf(){
+    public String getCpf(){
         return this.cpf;
     }
 
@@ -25,7 +25,7 @@ public class Dono {
         this.endereco = endereco;
     }
 
-    public void setCpf(int cpf){
+    public void setCpf(String cpf){
         this.cpf = cpf;
     }
 }
