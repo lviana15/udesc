@@ -11,12 +11,27 @@ Stack *createStack(int capacity) {
 };
 
 void push(Stack *stack, int value) {
-  if(stack->size == stack->top + 1) return;
+  if (stack->size == stack->top + 1)
+    return;
   stack->top++;
   stack->items[stack->top] = value;
 };
 
+void pop(Stack *stack) {
+  if (isEmpty(stack))
+    return;
+  stack->top--;
+  stack->size--;
+}
+
+int isEmpty(Stack *stack) {
+  if (stack->top < 0)
+    return 1;
+  return 0;
+}
+
 void printStack(Stack *stack) {
-  for (int i = 0; i <= stack->top; i++)
+  for (int i = 0; i < stack->size; i++)
     printf("[%d] ", stack->items[i]);
+  printf("\n");
 }
