@@ -4,8 +4,12 @@ public class Veterinario {
     private String nome;
     private float salario;
     private Endereco endereco = new Endereco();
-    private Animal[] animais = new Animal[10];
-    private int quantidadeAnimais;
+    private Animal animais[];
+    private int quantidadeAnimais = 0;
+    
+    public Veterinario (int tamAnimais) {
+    	animais = new Animal[tamAnimais];
+    }
 
     public String getNome(){
         return this.nome;
@@ -38,12 +42,9 @@ public class Veterinario {
     public void setEndereco(Endereco endereco){
        this.endereco = endereco;
     }
-
-    public void setAnimais(Animal[] animais){
-       this.animais = animais;
+    
+    public String toString() {
+    	return "Nome: " +nome+ ", Salario: " +salario;
     }
 
-    public void setQuantidadeAnimais(int quantidadeAnimais){
-       this.quantidadeAnimais = quantidadeAnimais;
-    }
 }

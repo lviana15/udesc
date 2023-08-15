@@ -37,4 +37,8 @@ public class Animal {
     public void setDescricao(String descricao){
         this.descricao = descricao;
     }
+    
+    public String toString() {
+    	return "Nome: " +nome+ ", Especie: " +especie+ ", Descricao: " +descricao;
+    }
 }
