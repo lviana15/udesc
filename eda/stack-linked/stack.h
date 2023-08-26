@@ -17,5 +17,7 @@ void pop(Stack *stack);
 void peek(Stack *stack);
 int size(Stack *stack);
 int isEmpty(Stack *stack);
+void freeStack(Stack *stack);
+void printStack(Stack *stack);
 
 #endif // !"stack.h"

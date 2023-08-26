@@ -18,10 +18,37 @@ Stack *createStack() {
 void push(Stack *stack, int value) {
   Node *newNode = createNode(value);
 
-  if (stack->top != NULL) {
-    stack->top = newNode;
-  } else {
-    newNode->next = stack->top;
-    stack->top = newNode;
-  }
+  newNode->data = value;
+  newNode->next = stack->top;
+  stack->top = newNode;
 }
+
+int isEmpty(Stack *stack) {
+    if (stack->top == NULL) return 1;
+    else return 0;
+}
+
+void peek(Stack *stack) {
+    if (isEmpty(stack)) printf("Empty stack");
+    else printf("[%d]", stack->top->data);
+}
+
+void printStack(Stack *stack) {
+  while (stack->top != NULL) {
+    printf("[%d] ", stack->top->data);
+    stack->top = stack->top->next;
+  }
+
+  printf("\n");
+}
+
+void freeStack(Stack *stack) {
+    while (stack->top != NULL) {
+        Node *aux = stack->top;
+        free(aux);
+        stack->top = aux->next;
+    }
+
+    free(stack);
+}
+
