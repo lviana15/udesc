@@ -23,14 +23,27 @@ void push(Stack *stack, int value) {
   stack->top = newNode;
 }
 
-int isEmpty(Stack *stack) {
-    if (stack->top == NULL) return 1;
-    else return 0;
-}
-
 void peek(Stack *stack) {
     if (isEmpty(stack)) printf("Empty stack");
     else printf("[%d]", stack->top->data);
+    printf("\n");
+}
+
+int size(Stack *stack) {
+    int size = 0;
+    Node *aux = stack->top;
+
+    while(aux != NULL){
+        size++;
+        aux = aux->next;
+    }
+
+    return size;
+}
+
+int isEmpty(Stack *stack) {
+    if (stack->top == NULL) return 1;
+    else return 0;
 }
 
 void printStack(Stack *stack) {

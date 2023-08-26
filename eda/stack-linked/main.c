@@ -14,6 +14,8 @@ int main (void) {
     push(stack, 7);
     push(stack, 21);
 
+    printf("Stack size: %d\n", size(stack));
+
     printStack(stack);
 
     freeStack(stack);
