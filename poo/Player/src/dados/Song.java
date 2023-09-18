@@ -5,25 +5,28 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.time.Duration;
+import java.time.LocalDate;
 
 public class Song {
 	private String title;
-	private Duration duration;
-	private Date release;
-	private List<Artist> authors;
+	// private Stream songStream;
+	private LocalDate release;
+	private List<String> authors;
 
-	public Song(String title, Date release, Duration duration) {
+	public Song(String title, LocalDate date) {
 		this.title = title;
-		this.duration = duration;
-		this.release = release;
-		this.authors = new ArrayList<Artist>();
+		this.release = date;
+		this.authors = new ArrayList<String>();
 	}
-	
+
+	// TODO: Play song method
+
 	public void addAuthor(Artist author) {
-		authors.add(author);
+		author.addSong(this.title);
+		authors.add(author.getName());
 	}
-	
-	public void removeAuthor(Artist author) {
+
+	public void removeAuthor(String author) {
 		authors.remove(author);
 	}
 
@@ -35,19 +38,11 @@ public class Song {
 		this.title = title;
 	}
 
-	public Duration getDuration() {
-		return duration;
-	}
-
-	public void setDuration(Duration duration) {
-		this.duration = duration;
-	}
-
-	public List<Artist> getAuthors() {
+	public List<String> getAuthors() {
 		return authors;
 	}
 
-	public Date getRelease() {
+	public LocalDate getRelease() {
 		return release;
 	}
 
@@ -60,11 +55,11 @@ public class Song {
 		if (getClass() != obj.getClass())
 			return false;
 		Song other = (Song) obj;
-		return Objects.equals(authors, other.authors) && Objects.equals(duration, other.duration)
-				&& Objects.equals(release, other.release) && Objects.equals(title, other.title);
+		return Objects.equals(authors, other.authors) && Objects.equals(release, other.release)
+				&& Objects.equals(title, other.title);
 	}
 
 	public String toString() {
-		return "Title: " +title+ ", Release Date: " +release+ ", Duration: " +duration+ ", Author(s): " +authors;
+		return "Title: " + title + ", Release Date: " + release + ", Author(s): " + authors;
 	}
 }

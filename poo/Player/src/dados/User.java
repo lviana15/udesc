@@ -10,7 +10,7 @@ public class User {
 	private String password;
 	private List<Song> favorites;
 	private List<Playlist> playlists;
-	
+
 	public User(String name, String username, String password) {
 		this.name = name;
 		this.username = username;
@@ -19,21 +19,45 @@ public class User {
 		this.playlists = new ArrayList<Playlist>();
 	}
 
-    public void addSong(Song song) {
-        favorites.add(song);
-    }
-    
-    public void removeSong(Song song) {
-    	favorites.remove(song);
-    }
-    
-    public void addPlaylist(Playlist playlist) {
-    	playlists.add(playlist);
-    }
-    
-    public void removePlaylist(Playlist playlist) {
-    	playlists.remove(playlist);
-    }
+	public void addSong(Song song) {
+		favorites.add(song);
+	}
+
+	public void removeSong(Song song) {
+		favorites.remove(song);
+	}
+
+	public void addPlaylist(String playlistName) {
+		Playlist playlist = new Playlist(playlistName);
+		playlists.add(playlist);
+	}
+
+	public void addSongPlaylist(String playlistName, Song song) {
+		for (Playlist playlist : playlists) {
+			if (playlist.getName().equals(playlistName)) {
+				playlist.addSong(song);
+			}
+		}
+	}
+
+	public void removeSongPlaylist(String playlistName, Song song) {
+		for (Playlist playlist : playlists) {
+			if (playlist.getName().equals(playlistName)) {
+				playlist.removeSong(song);
+				return;
+			}
+		}
+	}
+
+	public void removePlaylist(Playlist playlist) {
+		playlists.remove(playlist);
+	}
+
+	public void listPlaylists() {
+		for (Playlist playlist : this.playlists) {
+			System.out.println("Playlist: " + playlist.getName() + " Songs: " + playlist.getSongs());
+		}
+	}
 
 	public String getName() {
 		return name;
@@ -54,11 +78,11 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getPassword() {
 		return this.password;
 	}
-	
+
 	public List<Song> getFavorites() {
 		return favorites;
 	}
@@ -81,7 +105,8 @@ public class User {
 	}
 
 	public String toString() {
-		return "Name: " +name+ ", Username: " +username+ ", Favorite songs: " +favorites+ ", Playlists: " +playlists;
+		return "Name: " + name + ", Username: " + username + ", Favorite songs: " + favorites + ", Playlists: "
+				+ playlists;
 	}
 
 }
