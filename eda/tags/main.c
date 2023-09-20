@@ -12,9 +12,11 @@ int startsWith(const char *str, char *target) {
 }
 
 int hasEndingTag(const char *str) {
-  char *tags[] = {"!DOCTYPE", "input", "frame", "option", "img", "br", "hr"};
-  for (int i = 0; i < sizeof(tags); i++) {
-    if (strcmp(str, tags[i])) {
+  const char *tags[] = {"!DOCTYPE", "input", "frame", "option",
+                        "img",      "br",    "hr"};
+
+  for (int i = 0; i < sizeof(tags) / sizeof(tags[0]); i++) {
+    if (strcmp(str, tags[i]) == 0) {
       return 0;
     };
   }
@@ -31,12 +33,20 @@ int main(int argc, char *argv[]) {
   while (fgets(lines, sizeof(lines), fp)) {
     tag = strtok(lines, "<");
 
-    char *end = strpbrk(tag, " >");
-    if (end != NULL)
-      *end = '\0';
+    while (tag) {
+      char *end = strpbrk(tag, " >");
+      if (end != NULL)
+        *end = '\0';
 
-    if (startsWith(tag, "/")) {
+      if (startsWith(tag, "/")) {
+        printf("End tag: %s\n", tag);
+        // pop(stack)
+      } else if ((hasEndingTag(tag)) && (strlen(tag) > 0)) {
+        printf("%s\n", tag);
+        // push(tag, stack)
+      }
 
+      tag = strtok(NULL, "<");
     }
   }
 
