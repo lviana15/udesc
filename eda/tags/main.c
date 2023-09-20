@@ -39,6 +39,7 @@ int main(int argc, char *argv[]) {
 
   int count = 1;
   char log[100] = "";
+  char error[80];
   while (fgets(lines, sizeof(lines), fp)) {
 
     // Adquire primeira tag e roda enquanto houver proximas tags
@@ -57,10 +58,18 @@ int main(int argc, char *argv[]) {
 
         // Compara a tag de fechamento atual com topo da pilha e desempilha caso
         // TRUE
-        if (strcmp(tag, stack->top->data) == 0) {
+        char *top = stack->top->data;
+        if (strcmp(tag, top) == 0) {
           pop(stack);
+        } else if (size(stack) > 0) {
+          sprintf(error, "ERRO linha %d espera </%s>, recebido </%s> \n", count,
+                  top, tag);
+          strcat(log, error);
         } else {
-          strcat(log, "ERRO\n");
+          sprintf(error,
+                  "ERRO linha %d tag de fechamento </%s> sem tag de abertura\n",
+                  count, tag);
+          strcat(log, error);
         }
 
         // Verifica se é tag e empilha
@@ -75,7 +84,8 @@ int main(int argc, char *argv[]) {
   }
 
   if (!isEmpty(stack)) {
-    strcat(log, "ERRO\n");
+    sprintf(error, "ERRO tag <%s> sem fechamento\n", stack->top->data);
+    strcat(log, error);
   }
 
   free(stack);
