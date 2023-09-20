@@ -25,30 +25,61 @@ int hasEndingTag(const char *str) {
 }
 
 int main(int argc, char *argv[]) {
+  Stack *stack;
   char lines[1000];
   char *tag;
 
+  stack = createStack();
   FILE *fp = fopen(argv[1], "r");
 
-  while (fgets(lines, sizeof(lines), fp)) {
-    tag = strtok(lines, "<");
+  if ((fp = fopen(argv[1], "r")) == NULL) {
+    printf("Usage: %s [filename]\n", argv[0]);
+    return 1;
+  }
 
+  int count = 1;
+  char log[100] = "";
+  while (fgets(lines, sizeof(lines), fp)) {
+
+    // Adquire primeira tag e roda enquanto houver proximas tags
+    tag = strtok(lines, "<");
     while (tag) {
+
+      // "Corta" string para ter apenas a tag Html
       char *end = strpbrk(tag, " >");
       if (end != NULL)
         *end = '\0';
 
+      // Verifica se é tag de fechamento
       if (startsWith(tag, "/")) {
-        printf("End tag: %s\n", tag);
-        // pop(stack)
+        // Remover "/" para comparar com topo da pilha
+        tag++;
+
+        // Compara a tag de fechamento atual com topo da pilha e desempilha caso
+        // TRUE
+        if (strcmp(tag, stack->top->data) == 0) {
+          pop(stack);
+        } else {
+          strcat(log, "ERRO\n");
+        }
+
+        // Verifica se é tag e empilha
       } else if ((hasEndingTag(tag)) && (strlen(tag) > 0)) {
-        printf("%s\n", tag);
-        // push(tag, stack)
+        push(stack, tag);
       }
 
+      // Passa para proxima linha (tag)
       tag = strtok(NULL, "<");
     }
+    count++;
   }
+
+  if (!isEmpty(stack)) {
+    strcat(log, "ERRO\n");
+  }
+
+  free(stack);
+  printf("%s", log);
 
   return 0;
 }

@@ -1,12 +1,15 @@
 #include "stack.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 Node *createNode(char *tag) {
   Node *newNode = malloc(sizeof(Node));
-  newNode->data = tag;
-  newNode->next = NULL;
 
+  newNode->data = malloc(strlen(tag) + 1);
+  strcpy(newNode->data, tag);
+
+  newNode->next = NULL;
   return newNode;
 }
 
@@ -19,7 +22,6 @@ Stack *createStack() {
 void push(Stack *stack, char *tag) {
   Node *newNode = createNode(tag);
 
-  newNode->data = tag;
   newNode->next = stack->top;
   stack->top = newNode;
 }
@@ -36,9 +38,9 @@ void pop(Stack *stack) {
 
 char *peek(Stack *stack) {
   if (isEmpty(stack))
-      return NULL;
+    return NULL;
   else
-      return stack->top->data;
+    return stack->top->data;
 }
 
 int size(Stack *stack) {
@@ -62,6 +64,8 @@ int isEmpty(Stack *stack) {
 
 void printStack(Stack *stack) {
   Node *aux = stack->top;
+  if (isEmpty(stack))
+    return;
   while (aux != NULL) {
     printf("[%s] ", aux->data);
     aux = aux->next;

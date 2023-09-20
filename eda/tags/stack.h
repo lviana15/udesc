@@ -10,8 +10,8 @@ typedef struct Stack {
   struct Node *top;
 } Stack;
 
-Stack* createStack();
-Node* createNode(char *tag);
+Stack *createStack();
+Node *createNode(char *tag);
 void push(Stack *stack, char *value);
 void pop(Stack *stack);
 char *peek(Stack *stack);
