@@ -11,7 +11,7 @@ typedef struct Stack {
 } Stack;
 
 Stack* createStack();
-Node* createNode(char *value);
+Node* createNode(char *tag);
 void push(Stack *stack, char *value);
 void pop(Stack *stack);
 char *peek(Stack *stack);
