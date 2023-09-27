@@ -1,3 +1,4 @@
+package dados;
 
 public class Abundantes extends Gerador {
 	public void gerar(int quantidade) {

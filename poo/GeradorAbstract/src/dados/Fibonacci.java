@@ -1,3 +1,4 @@
+package dados;
 
 public class Fibonacci extends Gerador {
 	public void gerar(int quantidade) {
