@@ -33,9 +33,10 @@ struct pilha {
 //====== Operações providas na interface da PILHA
 //
 struct pilha *cria(void);
-int vazia(struct pilha *pil);
-int empilha(info *dados, struct pilha *pil);
-int desempilha(info *dados, struct pilha *pil);
-int busca(info *dados, struct pilha *pil);
-void reinicia(struct pilha *pil);
-struct pilha *destroi(struct pilha *pil);
+int vazia(struct pilha *pilha);
+int empilha(info *dados, struct pilha *pilha);
+int desempilha(info *dados, struct pilha *pilha);
+int busca(info *dados, struct pilha *pilha);
+int buscaBase(info *reg, struct pilha *pilha);
+void reinicia(struct pilha *pilha);
+struct pilha *destroi(struct pilha *pilha);

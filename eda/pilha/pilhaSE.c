@@ -10,64 +10,99 @@ int vazia(struct pilha *pil) {
 struct pilha *cria(void) {
   struct pilha *p = NULL;
   p = (struct pilha *)malloc(sizeof(struct pilha));
+
   if (p) {
     p->topo = NULL; //<<<<<<
     p->tamPilha = 0;
   }
+
   return p;
 }
 
-int empilha(info *novo, struct pilha *pil) {
+int empilha(info *novo, struct pilha *pilha) {
   struct noPDE *aux = NULL;
   aux = (struct noPDE *)malloc(sizeof(struct noPDE));
+
   if (aux != NULL) {
     memcpy(&(aux->dados), novo, sizeof(info)); //<<<<<<<<<<
-    aux->abaixo = pil->topo;
-    pil->topo = aux;
-    (pil->tamPilha)++;
+
+    aux->acima = NULL;
+    aux->abaixo = pilha->topo;
+
+    pilha->topo = aux;
+    (pilha->tamPilha)++;
+
     return SUCESSO;
   } else
     return FRACASSO;
 }
 
-int desempilha(info *reg, struct pilha *pil) {
+int desempilha(info *reg, struct pilha *pilha) {
   struct noPDE *aux = NULL;
-  if (vazia(pil) == NAO) {
-    memcpy(reg, &(pil->topo->dados), sizeof(info)); //<<<<<<<
-    aux = pil->topo->abaixo;
-    free(pil->topo);
-    pil->topo = aux;
-    (pil->tamPilha)--;
+
+  if (vazia(pilha) == NAO) {
+    memcpy(reg, &(pilha->topo->dados), sizeof(info)); //<<<<<<<
+
+    aux = pilha->topo->abaixo;
+    free(pilha->topo);
+
+    pilha->topo = aux;
+    (pilha->tamPilha)--;
+
     return SUCESSO;
   } else
     return FRACASSO;
 }
 
-int busca(info *reg, struct pilha *pil) {
-  if (vazia(pil) == NAO) {
-    memcpy(reg, &(pil->topo->dados), sizeof(info)); //<<<<<<<
+int busca(info *reg, struct pilha *pilha) {
+  if (vazia(pilha) == NAO) {
+    memcpy(reg, &(pilha->topo->dados), sizeof(info)); //<<<<<<<
     return SUCESSO;
   } else
     return FRACASSO;
 }
 
-void reinicia(struct pilha *pil) {
+int buscaBase(info *reg, struct pilha *pilha) {
   struct noPDE *aux = NULL;
-  if (vazia(pil) == NAO) {
-    aux = pil->topo->abaixo;
+
+  if (vazia(pilha) == NAO) {
+    aux = pilha->topo;
+
     while (aux != NULL) {
-      free(pil->topo);
-      pil->topo = aux;
+      pilha->topo = aux;
       aux = aux->abaixo;
     }
-    free(pil->topo);
-    pil->topo = NULL;
-    pil->tamPilha = 0;
+
+    memcpy(reg, &(pilha->topo->dados), sizeof(info));
+
+    return SUCESSO;
+  } else
+    return FRACASSO;
+}
+
+void reinicia(struct pilha *pilha) {
+  struct noPDE *aux = NULL;
+
+  if (vazia(pilha) == NAO) {
+    aux = pilha->topo->abaixo;
+
+    while (aux != NULL) {
+      free(pilha->topo);
+
+      pilha->topo = aux;
+      aux = aux->abaixo;
+    }
+
+    free(pilha->topo);
+
+    pilha->topo = NULL;
+    pilha->tamPilha = 0;
   }
 }
 
-struct pilha *destroi(struct pilha *pil) {
-  reinicia(pil);
-  free(pil);
+struct pilha *destroi(struct pilha *pilha) {
+  reinicia(pilha);
+  free(pilha);
+
   return NULL;
 }
