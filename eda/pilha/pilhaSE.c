@@ -68,12 +68,11 @@ int buscaBase(info *reg, struct pilha *pilha) {
   if (vazia(pilha) == NAO) {
     aux = pilha->topo;
 
-    while (aux != NULL) {
-      pilha->topo = aux;
+    while (aux->abaixo != NULL) {
       aux = aux->abaixo;
     }
 
-    memcpy(reg, &(pilha->topo->dados), sizeof(info));
+    memcpy(reg, &(aux->dados), sizeof(info));
 
     return SUCESSO;
   } else
