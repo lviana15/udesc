@@ -75,13 +75,8 @@ void printStack(Stack *stack) {
 }
 
 void freeStack(Stack *stack) {
-  Node *aux = stack->top->next;
-  while (aux != NULL) {
-    free(stack->top);
-    stack->top = aux;
-    aux = aux->next;
-  }
-
-  free(stack->top);
-  free(stack);
+    while (!isEmpty(stack)) {
+        pop(stack);
+    }
+    free(stack);
 }

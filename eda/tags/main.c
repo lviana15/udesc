@@ -58,13 +58,15 @@ int main(int argc, char *argv[]) {
 
         // Compara a tag de fechamento atual com topo da pilha e desempilha caso
         // TRUE
-        char *top = stack->top->data;
-        if (strcmp(tag, top) == 0) {
-          pop(stack);
-        } else if (size(stack) > 0) {
-          sprintf(error, "ERRO linha %d espera </%s>, recebido </%s> \n", count,
-                  top, tag);
-          strcat(log, error);
+        if (!isEmpty(stack)) {
+          char *top = stack->top->data;
+          if (strcmp(tag, top) == 0) {
+            pop(stack);
+          } else if (size(stack) > 0) {
+            sprintf(error, "ERRO linha %d espera </%s>, recebido </%s> \n",
+                    count, top, tag);
+            strcat(log, error);
+          }
         } else {
           sprintf(error,
                   "ERRO linha %d tag de fechamento </%s> sem tag de abertura\n",
@@ -84,12 +86,18 @@ int main(int argc, char *argv[]) {
   }
 
   if (!isEmpty(stack)) {
-    sprintf(error, "ERRO tag <%s> sem fechamento\n", stack->top->data);
-    strcat(log, error);
+    if (stack->top->data != NULL) {
+      sprintf(error, "ERRO tag <%s> sem fechamento\n", stack->top->data);
+      strcat(log, error);
+    }
   }
 
-  free(stack);
-  printf("%s", log);
+  freeStack(stack);
+  if (strlen(log) == 0) {
+    printf("Arquivo html válido");
+  } else {
+    printf("%s", log);
+  }
 
   return 0;
 }
