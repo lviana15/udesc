@@ -1,45 +1,36 @@
+#include "fila.h"
 #include "info.h"
 #include "refMovel.h"
-#include "fila.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
-// Define your data structures and functions here
 int readFile(struct refMovel *queue) {
   info data;
   int result;
-  int iterations = 0; // Initialize the iterations variable
+  int iterations = 0;
 
-  FILE *file = fopen("dataset_v1.csv", "r");
-  if (file == NULL) {
-    printf("Falha ao abrir arquivo.\n");
-    return 0;
-  }
-
-  char line[256]; // Adjust this buffer size based on your data
-  while (fgets(line, sizeof(line), file) != NULL) {
-    if (sscanf(line, "%29[^,], %29[^,], %d, %29[^\n]", data.nome,
+  // Insere linhas na fila
+  for (int i = 0; i < selectedCount; i++) {
+    if (sscanf(selectedLines[i], "%29[^,], %29[^,], %d, %29[^\n]", data.nome,
                data.matricula, &data.ranking, data.curso) == 4) {
       result = insere_(&data, queue);
       if (result) {
         iterations += result;
       } else {
-        printf("Falha ao inserir: %s %s %d %s\n", data.nome,
-               data.matricula, data.ranking, data.curso);
+        printf("Falha ao inserir: %s %s %d %s\n", data.nome, data.matricula,
+               data.ranking, data.curso);
       }
     }
   }
 
-  fclose(file);
-  return iterations; // Return the total iterations
+  return iterations;
 }
 
 int displayMenu(struct refMovel *queue) {
   info data;
-  int choice;
-  int result;
-  int iterations = 0; // Initialize the iterations variable
+  int choice, result;
 
   while (1) {
     printf("\nFila Prioridade com Referencia Movel\n");
@@ -62,7 +53,6 @@ int displayMenu(struct refMovel *queue) {
       result = insere_(&data, queue);
       if (result) {
         printf("Item inserido com sucesso\n");
-        iterations += result; // Accumulate iterations
       } else {
         printf("Falha ao inserir\n");
       }
@@ -118,7 +108,6 @@ int displayMenu(struct refMovel *queue) {
     case 8:
       destroi_(queue);
       printf("Fila destruída.\n");
-      return iterations; // Return the total iterations when you exit
 
     default:
       printf("Escolha inválida. Tente novamente\n");
@@ -126,10 +115,16 @@ int displayMenu(struct refMovel *queue) {
   }
 }
 
-int main() {
-  struct refMovel *queue = NULL;
-  int tamInfo = sizeof(info); // Update this with your info struct size
+int main(int argc, char *argv[]) {
+  if (argc != 3) {
+    printf("Execução correta: %s <arquivo> <numero para teste>\n", argv[0]);
+    printf("Exemplo:\n");
+    printf("./%s dataset_v1 500\n", argv[0]);
+  }
 
+  struct refMovel *queue = NULL;
+  int choice, selectedCount;
+  int tamInfo = sizeof(info);
   queue = cria_(tamInfo);
 
   if (queue == NULL) {
@@ -137,29 +132,59 @@ int main() {
     return 1;
   }
 
-  int totalIterations = 0; // Initialize the total iterations
+  // Tamanho maximo do arquivo (linhas)
+  // 10001 Linhas - Cada linha no max 35 caracteres
+  char selectedLines[10001][35];
+  int lineCount = 0;
 
-  int choice;
+  char line[35];
+
+  // Linhas a serem selecionadas
+  int maxLines = atoi(argv[2]);
+  int selectedCount = 0;
+
+  srand(time(NULL));
+
+  FILE *file = fopen(argv[1], "r");
+  if (file == NULL) {
+    printf("Falha ao abrir arquivo.\n");
+    return 1;
+  }
+
   printf("Escolha uma aplicação:\n");
   printf("1. Ler dados de um arquivo CSV\n");
   printf("2. Realizar operações manuais\n");
   printf("Digite sua escolha: ");
   scanf("%d", &choice);
 
-  if (choice == 1) {
-    totalIterations = readFile(queue);
-  } else if (choice == 2) {
-    totalIterations = displayMenu(queue);
-  } else {
-    printf("Escolha inválida. Saindo...\n");
-  }
+  switch (choice) {
+  case 1:
 
+    // Seleciona linhas aleatorias
+    while (fgets(line, sizeof(line), file)) {
+      lineCount++;
+
+      // Chance baseada na qtd de linhas desejada
+      double chance = (double)maxLines / lineCount;
+      // Se aleatorio for menor que chance -> Seleciona linha
+      if (selectedCount < maxLines && (rand() / (double)RAND_MAX) < chance) {
+        if (selectedCount < 100) {
+          strcpy(selectedLines[selectedCount], line);
+          selectedCount++;
+        } else {
+          break;
+        }
+      }
+    }
+    break;
+
+  case 2:
+    displayMenu(queue);
+  }
   destroi_(queue);
   printf("Fila destruída.\n");
 
-  if (choice == 1 || choice == 2) {
-    printf("Total de Iterações: %d\n", totalIterations);
-  }
+  fclose(file);
 
   return 0;
 }
