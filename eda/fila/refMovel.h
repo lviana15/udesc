@@ -12,21 +12,10 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
+#include "info.h"
 
 #define debugging 1
 
-typedef struct {
-  char nome[30];
-  char matricula[30];
-  int ranking;
-  char curso[30];
-} info;
-
-struct node {
-  info dados;
-  struct node *atras;
-  struct node *defronte;
-};
 
 struct refMovel {
   struct node *frente;
@@ -35,16 +24,13 @@ struct refMovel {
   int tamInfo;
 };
 
-//======================APLICACAO=====================
-
 //======================FILA=====================
-struct refMovel *cria(int tamInfo);
-int insnere(info *novo, struct refMovel *p);
-int tamanhoDaFila(struct refMovel *p);
-int reinicia(struct refMovel *p);
-struct refMovel *destroi(struct refMovel *p);
-int buscaNaCauda(info *reg, struct refMovel *p);
-int buscaNaFrente(info *reg, struct refMovel *p);
+struct refMovel *cria_(int tamInfo);
+int insere_(info *novo, struct refMovel *p);
+int tamanhoDaFila_(struct refMovel *p);
+int reinicia_(struct refMovel *p);
+struct refMovel *destroi_(struct refMovel *p);
+int buscaNaCauda_(info *reg, struct refMovel *p);
+int buscaNaFrente_(info *reg, struct refMovel *p);
 int remove_(info *reg, struct refMovel *p);
-int testaVazia(struct refMovel *p);
-int inverte(struct refMovel *p);
+int testaVazia_(struct refMovel *p);

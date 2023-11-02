@@ -1,4 +1,6 @@
-#include "arq.h"
+#include "fila.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 /*************** CRIA ***************/
 struct queue *cria(int tamInfo) {
@@ -68,7 +70,7 @@ int insere(info *pInfo, struct queue *p) {
 }
 
 /*************** REMOVE DA FRENTE ***************/
-int remove_(info *reg, struct queue *p) {
+int removeF(info *reg, struct queue *p) {
   int ret = FRACASSO;
   struct node *aux = p->cauda;
 

@@ -1,7 +1,8 @@
 #include "refMovel.h"
+#include <stdlib.h>
 
 /*************** CRIA ***************/
-struct refMovel *cria(int tamInfo) {
+struct refMovel *cria_(int tamInfo) {
   struct refMovel *desc = (struct refMovel *)malloc(sizeof(struct refMovel));
   if (desc != NULL) {
     desc->cauda = NULL;
@@ -12,26 +13,142 @@ struct refMovel *cria(int tamInfo) {
 }
 
 /*************** INSERE A PARTIR DA FRENTE ***************/
-int insere(info *pInfo, struct refMovel *p) {
-  int result;
+int insere_(info *pInfo, struct refMovel *p) {
+  int result = 0;
   struct node *novoNoFila = NULL, *visitado = NULL;
 
   if ((novoNoFila = (struct node *)malloc(sizeof(struct node))) != NULL) {
-      memcpy(&(novoNoFila->dados), pInfo, p->tamInfo);
+    memcpy(&(novoNoFila->dados), pInfo, p->tamInfo);
 
-      if (p->frente == NULL && p->cauda == NULL) {
-          novoNoFila->atras = novoNoFila->defronte = NULL;
-          p->frente = p->cauda = novoNoFila;
-      } else {
-          if(novoNoFila->dados.ranking < p->cauda->dados.ranking) {
-              novoNoFila->atras = NULL;
-              novoNoFila->defronte = p->cauda;
-              p->cauda->atras = novoNoFila;
-              p->cauda = novoNoFila;
-          }
-      }
+    if (p->frente == NULL && p->cauda == NULL) {
+      novoNoFila->atras = novoNoFila->defronte = NULL;
+      p->frente = p->cauda = novoNoFila;
 
+      p->refMovel = novoNoFila;
+      result++;
       return result;
+    }
+
+    // Caso 1
+    if (novoNoFila->dados.ranking <= p->cauda->dados.ranking) {
+      novoNoFila->atras = NULL;
+      novoNoFila->defronte = p->cauda;
+      p->cauda->atras = novoNoFila;
+      p->cauda = novoNoFila;
+
+      p->refMovel = novoNoFila;
+
+      result++;
+      return result;
+    }
+
+    // Caso 2
+    if (p->frente->dados.ranking < novoNoFila->dados.ranking) {
+      novoNoFila->atras = p->frente;
+      novoNoFila->defronte = NULL;
+      p->frente->defronte = novoNoFila;
+      p->frente = novoNoFila;
+
+      p->refMovel = novoNoFila;
+
+      result++;
+      return result;
+    }
+
+    // Caso 3 -- Novo entre cauda e refMovel
+    if ((p->cauda->dados.ranking < novoNoFila->dados.ranking) &&
+        (novoNoFila->dados.ranking <= p->refMovel->dados.ranking)) {
+      int deltaA = abs(p->cauda->dados.ranking - novoNoFila->dados.ranking);
+      int deltaB = abs(p->refMovel->dados.ranking - novoNoFila->dados.ranking);
+
+      // Busca pela cauda
+      if (deltaA < deltaB) {
+        visitado = p->cauda;
+        while (visitado != NULL &&
+               visitado->dados.ranking <= novoNoFila->dados.ranking) {
+          visitado = visitado->defronte;
+          result++;
+        }
+
+        novoNoFila->atras = visitado;
+        novoNoFila->defronte = visitado->defronte;
+
+        if (visitado != NULL) {
+          visitado->defronte = novoNoFila;
+        } else {
+          p->cauda = novoNoFila;
+        }
+
+        result++;
+        return result;
+      } else {
+        visitado = p->refMovel;
+        while (visitado != NULL &&
+               visitado->dados.ranking >= novoNoFila->dados.ranking) {
+          visitado = visitado->atras;
+          result++;
+        }
+
+        novoNoFila->defronte = visitado;
+        novoNoFila->atras = visitado->atras;
+
+        if (visitado != NULL) {
+          visitado->atras = novoNoFila;
+        } else {
+          p->refMovel = novoNoFila;
+        }
+
+        result++;
+        return result;
+      }
+    }
+
+    // Caso 4 -- Novo entre refMovel e frente
+    if ((p->refMovel->dados.ranking < novoNoFila->dados.ranking) &&
+        (novoNoFila->dados.ranking <= p->frente->dados.ranking)) {
+      int deltaA = abs(p->refMovel->dados.ranking - novoNoFila->dados.ranking);
+      int deltaB = abs(p->frente->dados.ranking - novoNoFila->dados.ranking);
+
+      if (deltaA < deltaB) {
+        visitado = p->refMovel;
+        while (visitado != NULL &&
+               visitado->dados.ranking >= novoNoFila->dados.ranking) {
+          visitado = visitado->atras;
+          result++;
+        }
+
+        novoNoFila->defronte = visitado;
+        novoNoFila->atras = visitado->atras;
+
+        if (visitado != NULL) {
+          visitado->atras = novoNoFila;
+        } else {
+          p->refMovel = novoNoFila;
+        }
+
+        result++;
+        return result;
+      } else {
+        visitado = p->frente;
+        while (visitado != NULL &&
+               visitado->dados.ranking <= novoNoFila->dados.ranking) {
+          visitado = visitado->defronte;
+          result++;
+        }
+
+        novoNoFila->atras = visitado;
+        novoNoFila->defronte = visitado->defronte;
+
+        if (visitado != NULL) {
+          visitado->defronte = novoNoFila;
+        } else {
+          p->frente = novoNoFila;
+        }
+
+        result++;
+        return result;
+      }
+    }
   }
 
   return FRACASSO;
@@ -60,7 +177,7 @@ int remove_(info *reg, struct refMovel *p) {
 }
 
 /*************** BUSCA NA FRENTE ***************/
-int buscaNaFrente(info *reg, struct refMovel *p) {
+int buscaNaFrente_(info *reg, struct refMovel *p) {
   int ret = FRACASSO;
 
   if (p->frente != NULL && p->cauda != NULL) {
@@ -72,7 +189,7 @@ int buscaNaFrente(info *reg, struct refMovel *p) {
 }
 
 /*************** BUSCA NA CAUDA ***************/
-int buscaNaCauda(info *reg, struct refMovel *p) {
+int buscaNaCauda_(info *reg, struct refMovel *p) {
   int ret = FRACASSO;
 
   if (p->cauda != NULL && p->frente != NULL) {
@@ -84,7 +201,7 @@ int buscaNaCauda(info *reg, struct refMovel *p) {
 }
 
 /*************** VAZIA? ***************/
-int testaVazia(struct refMovel *p) {
+int testaVazia_(struct refMovel *p) {
   if (p->frente == NULL && p->cauda == NULL) {
     return SIM;
   }
@@ -93,7 +210,7 @@ int testaVazia(struct refMovel *p) {
 }
 
 /*************** TAMANHO ***************/
-int tamanhoDaFila(struct refMovel *p) {
+int tamanhoDaFila_(struct refMovel *p) {
   int tam = 0;
   struct node *aux = p->cauda;
 
@@ -106,7 +223,7 @@ int tamanhoDaFila(struct refMovel *p) {
 }
 
 /*************** PURGA ***************/
-int reinicia(struct refMovel *p) {
+int reinicia_(struct refMovel *p) {
   int ret = FRACASSO;
   struct node *aux = NULL;
 
@@ -127,8 +244,8 @@ int reinicia(struct refMovel *p) {
 }
 
 /*************** DESTROI ***************/
-struct refMovel *destroi(struct refMovel *p) {
-  reinicia(p);
+struct refMovel *destroi_(struct refMovel *p) {
+  reinicia_(p);
   free(p);
   return NULL; // aterra o ponteiro externo, declarado na aplicação
 }

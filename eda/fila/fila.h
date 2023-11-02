@@ -1,3 +1,6 @@
+#ifndef QUEUE_H
+#define QUEUE_H
+
 #define LIVRE 0
 #define OCUPADA 1
 #define FRACASSO 0
@@ -9,32 +12,18 @@
 #define MAIOR 1
 #define IGUAL 0
 #define MENOR -1
+#include "info.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
 
 #define debugging 1
 
-typedef struct {
-  char nome[30];
-  char matricula[30];
-  int ranking;
-  char curso[30];
-} info;
-
-struct node {
-  info dados;
-  struct node *atras;
-  struct node *defronte;
-};
-
 struct queue {
   struct node *frente;
   struct node *cauda;
   int tamInfo;
 };
-
-//======================APLICACAO=====================
 
 //======================FILA=====================
 struct queue *cria(int tamInfo);
@@ -44,6 +33,7 @@ int reinicia(struct queue *p);
 struct queue *destroi(struct queue *p);
 int buscaNaCauda(info *reg, struct queue *p);
 int buscaNaFrente(info *reg, struct queue *p);
-int remove_(info *reg, struct queue *p);
+int removeF(info *reg, struct queue *p);
 int testaVazia(struct queue *p);
-int inverte(struct queue *p);
+
+#endif // !QUEUE_H
