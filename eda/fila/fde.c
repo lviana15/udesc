@@ -1,10 +1,10 @@
-#include "fila.h"
-#include <stdlib.h>
+#include "fde.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 /*************** CRIA ***************/
-struct queue *cria(int tamInfo) {
-  struct queue *desc = (struct queue *)malloc(sizeof(struct queue));
+struct FDE *criaFDE(int tamInfo) {
+  struct FDE *desc = (struct FDE *)malloc(sizeof(struct FDE));
   if (desc != NULL) {
     desc->cauda = NULL;
     desc->frente = NULL;
@@ -14,63 +14,56 @@ struct queue *cria(int tamInfo) {
 }
 
 /*************** INSERE A PARTIR DA FRENTE ***************/
-int insere(info *pInfo, struct queue *p) {
-  int result;
+int insereFDE(info *pInfo, struct FDE *p) {
   struct node *novoNoFila = NULL, *visitado = NULL;
-  if ((novoNoFila = (struct node *) malloc(sizeof(struct node))) != NULL) {
+  int result = 0;
+
+  if ((novoNoFila = (struct node *)malloc(sizeof(struct node))) != NULL) {
     memcpy(&(novoNoFila->dados), pInfo, p->tamInfo);
 
-    /*fila vazia*/
     if (p->frente == NULL && p->cauda == NULL) {
       novoNoFila->atras = novoNoFila->defronte = NULL;
       p->frente = p->cauda = novoNoFila;
-    } else { //
-             /*novo elemento é o de menor ranking */
+
+      result++;
+    } else {
       if (novoNoFila->dados.ranking < p->cauda->dados.ranking) {
         novoNoFila->atras = NULL;
         novoNoFila->defronte = p->cauda;
         p->cauda->atras = novoNoFila;
         p->cauda = novoNoFila;
 
+        result++;
       } else {
-        visitado = p->frente; /*maior ranking na frente */
+        visitado = p->frente;
         while (visitado->atras != NULL &&
-               (visitado->dados.ranking >= novoNoFila->dados.ranking))
-          visitado = visitado->atras; /* A(ranking) <= B(idade) */
+               (visitado->dados.ranking >= novoNoFila->dados.ranking)) {
+          visitado = visitado->atras;
 
-        /* novo item fica a frente do visitado */
+          result++;
+        }
+
         if (visitado->dados.ranking < novoNoFila->dados.ranking) {
           novoNoFila->atras = visitado;
           if (visitado->defronte != NULL) {
             novoNoFila->defronte = visitado->defronte;
             visitado->defronte->atras = novoNoFila;
           } else {
-            // novo item é o de maior ranking de todos na fila, sendo
-            // a nova frente
             novoNoFila->defronte = NULL;
             p->frente = novoNoFila;
           }
           visitado->defronte = novoNoFila;
         }
-        // else //<<- novo item é o de menor ranking de todos na fila,
-        // sendo a nova cauda Essa é uma condicao ja tratada
-        //{
-        //		novoNoFila->defronte = visitado;
-        //		novoNoFila->atras = NULL;
-        //		visitado->atras = novoNoFila;
-        //		p->cauda = novoNoFila;
-        //}
       }
-
-    } //
-    return SUCESSO;
+    }
+    return result;
   }
 
   return FRACASSO;
 }
 
 /*************** REMOVE DA FRENTE ***************/
-int removeF(info *reg, struct queue *p) {
+int removeFDE(info *reg, struct FDE *p) {
   int ret = FRACASSO;
   struct node *aux = p->cauda;
 
@@ -92,7 +85,7 @@ int removeF(info *reg, struct queue *p) {
 }
 
 /*************** BUSCA NA FRENTE ***************/
-int buscaNaFrente(info *reg, struct queue *p) {
+int buscaNaFrenteFDE(info *reg, struct FDE *p) {
   int ret = FRACASSO;
 
   if (p->frente != NULL && p->cauda != NULL) {
@@ -104,7 +97,7 @@ int buscaNaFrente(info *reg, struct queue *p) {
 }
 
 /*************** BUSCA NA CAUDA ***************/
-int buscaNaCauda(info *reg, struct queue *p) {
+int buscaNaCaudaFDE(info *reg, struct FDE *p) {
   int ret = FRACASSO;
 
   if (p->cauda != NULL && p->frente != NULL) {
@@ -116,7 +109,7 @@ int buscaNaCauda(info *reg, struct queue *p) {
 }
 
 /*************** VAZIA? ***************/
-int testaVazia(struct queue *p) {
+int testaVaziaFDE(struct FDE *p) {
   if (p->frente == NULL && p->cauda == NULL) {
     return SIM;
   }
@@ -125,7 +118,7 @@ int testaVazia(struct queue *p) {
 }
 
 /*************** TAMANHO ***************/
-int tamanhoDaFila(struct queue *p) {
+int tamanhoDaFilaFDE(struct FDE *p) {
   int tam = 0;
   struct node *aux = p->cauda;
 
@@ -138,7 +131,7 @@ int tamanhoDaFila(struct queue *p) {
 }
 
 /*************** PURGA ***************/
-int reinicia(struct queue *p) {
+int reiniciaFDE(struct FDE *p) {
   int ret = FRACASSO;
   struct node *aux = NULL;
 
@@ -159,8 +152,8 @@ int reinicia(struct queue *p) {
 }
 
 /*************** DESTROI ***************/
-struct queue *destroi(struct queue *p) {
-  reinicia(p);
+struct FDE *destroiFDE(struct FDE *p) {
+  reiniciaFDE(p);
   free(p);
   return NULL; // aterra o ponteiro externo, declarado na aplicação
 }

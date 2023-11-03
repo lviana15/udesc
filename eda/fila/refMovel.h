@@ -25,12 +25,12 @@ struct refMovel {
 };
 
 //======================FILA=====================
-struct refMovel *cria_(int tamInfo);
-int insere_(info *novo, struct refMovel *p);
-int tamanhoDaFila_(struct refMovel *p);
-int reinicia_(struct refMovel *p);
-struct refMovel *destroi_(struct refMovel *p);
-int buscaNaCauda_(info *reg, struct refMovel *p);
-int buscaNaFrente_(info *reg, struct refMovel *p);
-int remove_(info *reg, struct refMovel *p);
-int testaVazia_(struct refMovel *p);
+struct refMovel *criaFRM(int tamInfo);
+int insereFRM(info *novo, struct refMovel *p);
+int tamanhoDaFilaFRM(struct refMovel *p);
+int reiniciaFRM(struct refMovel *p);
+struct refMovel *destroiFRM(struct refMovel *p);
+int buscaNaCaudaFRM(info *reg, struct refMovel *p);
+int buscaNaFrenteFRM(info *reg, struct refMovel *p);
+int removeFRM(info *reg, struct refMovel *p);
+int testaVaziaFRM(struct refMovel *p);

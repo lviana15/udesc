@@ -1,4 +1,4 @@
-#include "fila.h"
+#include "fde.h"
 #include "info.h"
 #include "refMovel.h"
 #include <stdio.h>
@@ -6,29 +6,50 @@
 #include <string.h>
 #include <time.h>
 
-int readFile(struct refMovel *queue) {
+double preencheFRM(struct refMovel *FRM, char selectedLines[][35],
+                   int maxLines) {
   info data;
-  int result;
-  int iterations = 0;
+  int result, iterations = 0;
+  double average;
 
   // Insere linhas na fila
-  for (int i = 0; i < selectedCount; i++) {
+  for (int i = 0; i < maxLines; i++) {
     if (sscanf(selectedLines[i], "%29[^,], %29[^,], %d, %29[^\n]", data.nome,
                data.matricula, &data.ranking, data.curso) == 4) {
-      result = insere_(&data, queue);
+      result = insereFRM(&data, FRM);
       if (result) {
         iterations += result;
-      } else {
-        printf("Falha ao inserir: %s %s %d %s\n", data.nome, data.matricula,
-               data.ranking, data.curso);
       }
     }
   }
 
-  return iterations;
+  average = (double)iterations / maxLines;
+
+  return average;
 }
 
-int displayMenu(struct refMovel *queue) {
+double preencheFDE(struct FDE *FDE, char selectedLines[][35], int maxLines) {
+  info data;
+  int result, iterations = 0;
+  double average;
+
+  // Insere linhas na fila
+  for (int i = 0; i < maxLines; i++) {
+    if (sscanf(selectedLines[i], "%29[^,], %29[^,], %d, %29[^\n]", data.nome,
+               data.matricula, &data.ranking, data.curso) == 4) {
+      result = insereFDE(&data, FDE);
+      if (result) {
+        iterations += result;
+      }
+    }
+  }
+
+  average = (double)iterations / maxLines;
+
+  return average;
+}
+
+void displayMenu(struct refMovel *FRM) {
   info data;
   int choice, result;
 
@@ -50,7 +71,7 @@ int displayMenu(struct refMovel *queue) {
       printf("Digite dados (Nome, Matricula, Ranking, Curso): ");
       scanf("%s %s %d %s", data.nome, data.matricula, &data.ranking,
             data.curso);
-      result = insere_(&data, queue);
+      result = insereFRM(&data, FRM);
       if (result) {
         printf("Item inserido com sucesso\n");
       } else {
@@ -59,7 +80,7 @@ int displayMenu(struct refMovel *queue) {
       break;
 
     case 2:
-      result = remove_(&data, queue);
+      result = removeFRM(&data, FRM);
       if (result) {
         printf("Item removido: %s %s %d %s\n", data.nome, data.matricula,
                data.ranking, data.curso);
@@ -69,7 +90,7 @@ int displayMenu(struct refMovel *queue) {
       break;
 
     case 3:
-      if (testaVazia_(queue)) {
+      if (testaVaziaFRM(FRM)) {
         printf("Fila vazia\n");
       } else {
         printf("Fila não vazia\n");
@@ -77,11 +98,11 @@ int displayMenu(struct refMovel *queue) {
       break;
 
     case 4:
-      printf("Tamanho da fila: %d\n", tamanhoDaFila_(queue));
+      printf("Tamanho da fila: %d\n", tamanhoDaFilaFRM(FRM));
       break;
 
     case 5:
-      result = buscaNaFrente_(&data, queue);
+      result = buscaNaFrenteFRM(&data, FRM);
       if (result) {
         printf("Item na frente: %s %s %d %s\n", data.nome, data.matricula,
                data.ranking, data.curso);
@@ -91,7 +112,7 @@ int displayMenu(struct refMovel *queue) {
       break;
 
     case 6:
-      result = buscaNaCauda_(&data, queue);
+      result = buscaNaCaudaFRM(&data, FRM);
       if (result) {
         printf("Item na cauda: %s %s %d %s\n", data.nome, data.matricula,
                data.ranking, data.curso);
@@ -101,12 +122,12 @@ int displayMenu(struct refMovel *queue) {
       break;
 
     case 7:
-      reinicia_(queue);
+      reiniciaFRM(FRM);
       printf("Fila reiniciada.\n");
       break;
 
     case 8:
-      destroi_(queue);
+      destroiFRM(FRM);
       printf("Fila destruída.\n");
 
     default:
@@ -117,17 +138,28 @@ int displayMenu(struct refMovel *queue) {
 
 int main(int argc, char *argv[]) {
   if (argc != 3) {
-    printf("Execução correta: %s <arquivo> <numero para teste>\n", argv[0]);
+    printf("Execução correta: %s <arquivo> <qtd casos>\n", argv[0]);
     printf("Exemplo:\n");
-    printf("./%s dataset_v1 500\n", argv[0]);
+    printf("%s datasetFRMv1 500\n", argv[0]);
+
+    return 1;
   }
 
-  struct refMovel *queue = NULL;
-  int choice, selectedCount;
-  int tamInfo = sizeof(info);
-  queue = cria_(tamInfo);
+  int choice, selectedCount, lineCount, tamInfo = sizeof(info);
+  double averageFRM, averageFDE;
 
-  if (queue == NULL) {
+  struct FDE *FDE = NULL;
+  FDE = criaFDE(tamInfo);
+
+  if (FDE == NULL) {
+    printf("Erro criando a fila\n");
+    return 1;
+  }
+
+  struct refMovel *FRM = NULL;
+  FRM = criaFRM(tamInfo);
+
+  if (FRM == NULL) {
     printf("Erro criando a fila\n");
     return 1;
   }
@@ -135,13 +167,10 @@ int main(int argc, char *argv[]) {
   // Tamanho maximo do arquivo (linhas)
   // 10001 Linhas - Cada linha no max 35 caracteres
   char selectedLines[10001][35];
-  int lineCount = 0;
-
   char line[35];
 
   // Linhas a serem selecionadas
   int maxLines = atoi(argv[2]);
-  int selectedCount = 0;
 
   srand(time(NULL));
 
@@ -152,36 +181,39 @@ int main(int argc, char *argv[]) {
   }
 
   printf("Escolha uma aplicação:\n");
-  printf("1. Ler dados de um arquivo CSV\n");
+  printf("1. Ler dados do arquivo\n");
   printf("2. Realizar operações manuais\n");
-  printf("Digite sua escolha: ");
+  printf("\nDigite sua escolha: ");
   scanf("%d", &choice);
 
   switch (choice) {
   case 1:
-
-    // Seleciona linhas aleatorias
-    while (fgets(line, sizeof(line), file)) {
+    while (selectedCount < maxLines &&
+           fgets(line, sizeof(line), file) != NULL) {
       lineCount++;
 
-      // Chance baseada na qtd de linhas desejada
-      double chance = (double)maxLines / lineCount;
-      // Se aleatorio for menor que chance -> Seleciona linha
-      if (selectedCount < maxLines && (rand() / (double)RAND_MAX) < chance) {
-        if (selectedCount < 100) {
-          strcpy(selectedLines[selectedCount], line);
-          selectedCount++;
-        } else {
-          break;
-        }
+      int randomValue = (rand() % 10001) + 1;
+
+      // Check if the generated number is less than or equal to a threshold
+      // (e.g., 50) Adjust the threshold to control how many lines you select
+      if (randomValue <= maxLines) {
+        strcpy(selectedLines[selectedCount], line);
+        selectedCount++;
       }
     }
+
+    // Inserir filas
+    averageFRM = preencheFRM(FRM, selectedLines, selectedCount);
+    averageFDE = preencheFDE(FDE, selectedLines, selectedCount);
+    printf("Media iteracoes Fila com Referencia Movel: %.2f\n", averageFRM);
+    printf("Media iteracoes Fila Duplamente Encadeada: %.2f\n", averageFDE);
     break;
 
   case 2:
-    displayMenu(queue);
+    displayMenu(FRM);
   }
-  destroi_(queue);
+
+  destroiFRM(FRM);
   printf("Fila destruída.\n");
 
   fclose(file);

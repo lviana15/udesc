@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 /*************** CRIA ***************/
-struct refMovel *cria_(int tamInfo) {
+struct refMovel *criaFRM(int tamInfo) {
   struct refMovel *desc = (struct refMovel *)malloc(sizeof(struct refMovel));
   if (desc != NULL) {
     desc->cauda = NULL;
@@ -13,7 +13,7 @@ struct refMovel *cria_(int tamInfo) {
 }
 
 /*************** INSERE A PARTIR DA FRENTE ***************/
-int insere_(info *pInfo, struct refMovel *p) {
+int insereFRM(info *pInfo, struct refMovel *p) {
   int result = 0;
   struct node *novoNoFila = NULL, *visitado = NULL;
 
@@ -155,7 +155,7 @@ int insere_(info *pInfo, struct refMovel *p) {
 }
 
 /*************** REMOVE DA FRENTE ***************/
-int remove_(info *reg, struct refMovel *p) {
+int removeFRM(info *reg, struct refMovel *p) {
   int ret = FRACASSO;
   struct node *aux = p->cauda;
 
@@ -177,7 +177,7 @@ int remove_(info *reg, struct refMovel *p) {
 }
 
 /*************** BUSCA NA FRENTE ***************/
-int buscaNaFrente_(info *reg, struct refMovel *p) {
+int buscaNaFrenteFRM(info *reg, struct refMovel *p) {
   int ret = FRACASSO;
 
   if (p->frente != NULL && p->cauda != NULL) {
@@ -189,7 +189,7 @@ int buscaNaFrente_(info *reg, struct refMovel *p) {
 }
 
 /*************** BUSCA NA CAUDA ***************/
-int buscaNaCauda_(info *reg, struct refMovel *p) {
+int buscaNaCaudaFRM(info *reg, struct refMovel *p) {
   int ret = FRACASSO;
 
   if (p->cauda != NULL && p->frente != NULL) {
@@ -201,7 +201,7 @@ int buscaNaCauda_(info *reg, struct refMovel *p) {
 }
 
 /*************** VAZIA? ***************/
-int testaVazia_(struct refMovel *p) {
+int testaVaziaFRM(struct refMovel *p) {
   if (p->frente == NULL && p->cauda == NULL) {
     return SIM;
   }
@@ -210,7 +210,7 @@ int testaVazia_(struct refMovel *p) {
 }
 
 /*************** TAMANHO ***************/
-int tamanhoDaFila_(struct refMovel *p) {
+int tamanhoDaFilaFRM(struct refMovel *p) {
   int tam = 0;
   struct node *aux = p->cauda;
 
@@ -223,7 +223,7 @@ int tamanhoDaFila_(struct refMovel *p) {
 }
 
 /*************** PURGA ***************/
-int reinicia_(struct refMovel *p) {
+int reiniciaFRM(struct refMovel *p) {
   int ret = FRACASSO;
   struct node *aux = NULL;
 
@@ -244,8 +244,8 @@ int reinicia_(struct refMovel *p) {
 }
 
 /*************** DESTROI ***************/
-struct refMovel *destroi_(struct refMovel *p) {
-  reinicia_(p);
+struct refMovel *destroiFRM(struct refMovel *p) {
+  reiniciaFRM(p);
   free(p);
   return NULL; // aterra o ponteiro externo, declarado na aplicação
 }
