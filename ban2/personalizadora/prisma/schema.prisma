@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model cliente {
+  id_cliente       Int        @id @default(autoincrement())
+  nome_cliente     String     @db.VarChar(255)
+  cpf_cliente      String     @unique @db.VarChar(12)
+  endereco_cliente String     @db.VarChar(255)
+  tel_cliente      String     @db.VarChar(255)
+  contrato         contrato[]
+  veiculo          veiculo[]
+}
+
+model componente {
+  id_componente      Int                 @id @default(autoincrement())
+  nome_componente    String              @db.VarChar(255)
+  preco_componente   Decimal             @db.Decimal(10, 2)
+  id_tipo_componente Int
+  qtd_estoque        Int                 @default(0)
+  qtd_minima         Int?                @default(0)
+  tipo_componente    tipo_componente     @relation(fields: [id_tipo_componente], references: [id_tipo_componente], onDelete: NoAction, onUpdate: NoAction)
+  item_pedido        item_pedido[]
+  lista_componentes  lista_componentes[]
+  notificacao        notificacao[]
+}
+
+model contrato {
+  id_contrato     Int       @id @default(autoincrement())
+  id_cliente      Int
+  id_veiculo      Int
+  data_contrato   DateTime  @db.Date
+  valor_contrato  Decimal   @db.Decimal(10, 2)
+  status_contrato String    @db.VarChar(50)
+  cliente         cliente   @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction)
+  veiculo         veiculo   @relation(fields: [id_veiculo], references: [id_veiculo], onDelete: NoAction, onUpdate: NoAction)
+  receita         receita[]
+}
+
+model departamento {
+  id_departamento                                       Int             @id @default(autoincrement())
+  nome_departamento                                     String          @db.VarChar(255)
+  descricao_departamento                                String?
+  id_responsavel                                        Int?
+  funcionario_departamento_id_responsavelTofuncionario  funcionario?    @relation("departamento_id_responsavelTofuncionario", fields: [id_responsavel], references: [id_funcionario], onDelete: NoAction, onUpdate: NoAction)
+  funcionario_funcionario_id_departamentoTodepartamento funcionario[]   @relation("funcionario_id_departamentoTodepartamento")
+  funcionarios_responsaveis                             funcionario[]   @relation("Responsavel")
+  notificacao                                           notificacao[]
+  pedido_compra                                         pedido_compra[]
+  funcionario                                           funcionario[]
+}
+
+model despesa {
+  id_despesa       Int           @id @default(autoincrement())
+  id_pedido_compra Int
+  valor_despesa    Decimal       @db.Decimal(10, 2)
+  data_despesa     DateTime      @db.Date
+  pedido_compra    pedido_compra @relation(fields: [id_pedido_compra], references: [id_pedido_compra], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model fornecedor {
+  id_fornecedor        Int             @id @default(autoincrement())
+  nome_fornecedor      String          @db.VarChar(255)
+  endereco_fornecedor  String          @db.VarChar(255)
+  tel_fornecedor       String          @db.VarChar(255)
+  principal_fornecedor Boolean?        @default(false)
+  cnpj_fornecedor      String          @unique @db.VarChar(15)
+  pedido_compra        pedido_compra[]
+}
+
+model funcionario {
+  id_funcionario    Int     @id @default(autoincrement())
+  nome_funcionario  String  @db.VarChar(255)
+  cpf_funcionario   String  @unique @db.VarChar(12)
+  id_departamento   Int
+  cargo_funcionario String? @db.VarChar(255)
+
+  departamento departamento? @relation(fields: [id_departamento], references: [id_departamento], map: "funcionario_id_departamento_fkey_unique", onDelete: NoAction, onUpdate: NoAction)
+
+  id_responsavel                                        Int?
+  departamento_responsavel                              departamento?  @relation("Responsavel", fields: [id_responsavel], references: [id_departamento])
+  departamento_funcionario_id_responsavelTofuncionario  departamento[] @relation("departamento_id_responsavelTofuncionario")
+  funcionario_funcionario_id_departamentoTodepartamento departamento   @relation("funcionario_id_departamentoTodepartamento", fields: [id_departamento], references: [id_departamento])
+}
+
+model item_pedido {
+  id_item_pedido             Int           @id @default(autoincrement())
+  id_pedido_compra           Int
+  id_componente              Int
+  quantidade_item_pedido     Int
+  preco_unitario_item_pedido Decimal       @db.Decimal(10, 2)
+  componente                 componente    @relation(fields: [id_componente], references: [id_componente], onDelete: NoAction, onUpdate: NoAction)
+  pedido_compra              pedido_compra @relation(fields: [id_pedido_compra], references: [id_pedido_compra], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model lista_componentes {
+  id_lista_componentes Int          @id @default(autoincrement())
+  id_tipo_veiculo      Int
+  id_componente        Int
+  componente           componente   @relation(fields: [id_componente], references: [id_componente], onDelete: NoAction, onUpdate: NoAction)
+  tipo_veiculo         tipo_veiculo @relation(fields: [id_tipo_veiculo], references: [id_tipo_veiculo], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model notificacao {
+  id_notificacao         Int          @id @default(autoincrement())
+  id_departamento        Int
+  id_componente          Int
+  quantidade_notificacao Int
+  data_notificacao       DateTime     @db.Date
+  componente             componente   @relation(fields: [id_componente], references: [id_componente], onDelete: NoAction, onUpdate: NoAction)
+  departamento           departamento @relation(fields: [id_departamento], references: [id_departamento], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model pedido_compra {
+  id_pedido_compra Int           @id @default(autoincrement())
+  data_pedido      DateTime      @db.Date
+  id_departamento  Int
+  id_fornecedor    Int
+  despesa          despesa[]
+  item_pedido      item_pedido[]
+  departamento     departamento  @relation(fields: [id_departamento], references: [id_departamento], onDelete: NoAction, onUpdate: NoAction)
+  fornecedor       fornecedor    @relation(fields: [id_fornecedor], references: [id_fornecedor], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model receita {
+  id_receita    Int      @id @default(autoincrement())
+  id_contrato   Int
+  valor_receita Decimal  @db.Decimal(10, 2)
+  data_receita  DateTime @db.Date
+  contrato      contrato @relation(fields: [id_contrato], references: [id_contrato], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model tipo_componente {
+  id_tipo_componente        Int          @id @default(autoincrement())
+  nome_tipo_componente      String       @db.VarChar(255)
+  descricao_tipo_componente String       @db.VarChar(255)
+  componente                componente[]
+}
+
+model tipo_veiculo {
+  id_tipo_veiculo        Int                 @id @default(autoincrement())
+  nome_tipo_veiculo      String              @db.VarChar(255)
+  descricao_tipo_veiculo String              @db.VarChar(255)
+  lista_componentes      lista_componentes[]
+  veiculo                veiculo[]
+}
+
+model veiculo {
+  id_veiculo     Int          @id @default(autoincrement())
+  modelo_veiculo String       @db.VarChar(255)
+  ano_veiculo    Int
+  id_cliente     Int
+  id_tipo        Int
+  contrato       contrato[]
+  cliente        cliente      @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction)
+  tipo_veiculo   tipo_veiculo @relation(fields: [id_tipo], references: [id_tipo_veiculo], onDelete: NoAction, onUpdate: NoAction)
+}

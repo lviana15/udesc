@@ -1,0 +1,17 @@
+Clientes(#codCliente, nome, endereco)
+Fisicos(#&codCliente, cpf, dt_nasc, sexo)
+Juridicos(#&codCliente, cnpj)
+
+Veiculos(#placa, nrMotor, cor, kmAtual, chassi, &codFilial, &codigoTipo)
+Agendamento(#codAgendamento, &placa, &codRevisao, data, hora)
+Revisoes(#codRevisao, nome, descricao)
+Manutenção(#codManutenção, &placa, &codTipo)
+
+Filiais(#codFilial, nome)
+Reservas(#codReserva, &codCliente, &codTipo, dtHoraRetirada, dtHoraEntrega &codFilialRetirada, &codFilialEntrega)
+Aluguel(#codAluguel, &placa, &codReserva, cnh, dtVencimentoCnh, nomeMotorista)
+
+TiposVeiculo(#codigoTipo, tempoLimpeza, kmMediaDiaria)
+Carga(#&codigoTipo, cargaMax)
+Passeio(#&codigoTipo, nroPassageiros, tamanhom, portas)
+Acessorios(#codAcessorio, &codigoTipo, acessorio)

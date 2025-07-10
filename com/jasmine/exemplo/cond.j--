@@ -1,0 +1,16 @@
+int foo(int x) {
+    return x + 1;
+}
+
+double bar(double y) {
+    return y * 2.5;
+}
+
+int main() {
+    int a = 10;
+    double b = 3.5;
+    print(a);
+    print(bar(b));
+    return;
+}
+

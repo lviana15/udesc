@@ -126,3 +126,6 @@ yarn.lock
 *.tmp
 *.temp
 .cache/
+
+# Embedded git repositories
+com/Compiladores/

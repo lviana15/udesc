@@ -1,0 +1,233 @@
+2025-03-24 11:12:02 INFO Initializing file watching service...
+2025-03-24 11:12:02 INFO Connecting to watchman...
+2025-03-24 11:12:02 INFO Established watchman connection.
+2025-03-24 11:12:02 INFO Request watchman subscription at /home/viana/Documents/udesc/pim/scripts
+2025-03-24 11:12:02 INFO Initializing shared memory (heap_size: 8589934592, dep_table_pow: 27, hash_table_pow: 26)
+2025-03-24 11:12:02 INFO Server has started listening on socket `/tmp/pyre_server_1f15749233538a9d.sock`
+2025-03-24 11:12:02 INFO Initializing server state from scratch...
+2025-03-24 11:12:02 INFO Building module tracker...
+2025-03-24 11:12:02 PERFORMANCE Module tracker built: 0.211s
+2025-03-24 11:12:02 PERFORMANCE Full environment built: 0.212s
+2025-03-24 11:12:02 INFO Collecting all definitions...
+2025-03-24 11:12:02 PERFORMANCE Collected definitions (defines: 1): 0.003s
+2025-03-24 11:12:02 INFO Checking 1 functions...
+2025-03-24 11:12:02 PROGRESS Processed 1 of 1 functions
+2025-03-24 11:12:02 PERFORMANCE Check_TypeCheck: 0.302s
+2025-03-24 11:12:02 MEMORY Shared memory size post-typecheck (size: 0)
+2025-03-24 11:12:02 PROGRESS Postprocessing 1 sources...
+2025-03-24 11:12:02 PROGRESS Postprocessed 1 of 1 sources
+2025-03-24 11:12:02 PERFORMANCE Check_Postprocessing: 0.000s
+2025-03-24 11:12:02 PERFORMANCE Initialization (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, initialization method: cold start): 0.518s
+2025-03-24 11:12:02 INFO Server state initialized.
+2025-03-24 11:12:02 SERVER Connection established
+2025-03-24 11:12:02 SERVER Processing request (DisplayTypeError())...
+2025-03-24 11:12:02 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: DisplayTypeErrors): 0.000s
+2025-03-24 11:12:02 SERVER Request `(DisplayTypeError())` processed
+2025-03-24 11:12:02 SERVER Connection closed
+2025-03-24 11:13:13 SERVER Connection established
+2025-03-24 11:13:13 SERVER Subscription added: persistent_10870
+2025-03-24 11:13:13 SERVER Processing request (DisplayTypeError())...
+2025-03-24 11:13:13 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: DisplayTypeErrors): 0.000s
+2025-03-24 11:13:13 SERVER Request `(DisplayTypeError())` processed
+2025-03-24 11:19:11 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:19:11 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:19:11 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:19:11 INFO Repopulating the environment...
+2025-03-24 11:19:11 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:19:11 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:19:11 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:19:11 MEMORY Shared memory size (size: 0)
+2025-03-24 11:19:11 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 1, number of re-checked functions: 1): 0.484s
+2025-03-24 11:19:11 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:19:11 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:19:11 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.485s
+2025-03-24 11:19:11 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:20:04 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:20:04 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:20:04 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:20:04 INFO Repopulating the environment...
+2025-03-24 11:20:04 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:20:04 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:20:04 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:20:04 MEMORY Shared memory size (size: 0)
+2025-03-24 11:20:04 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 1, number of re-checked functions: 1): 0.444s
+2025-03-24 11:20:04 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:20:04 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:20:04 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.445s
+2025-03-24 11:20:04 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:20:12 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:20:12 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:20:12 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:20:13 INFO Repopulating the environment...
+2025-03-24 11:20:13 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:20:13 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:20:13 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:20:13 MEMORY Shared memory size (size: 0)
+2025-03-24 11:20:13 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 1, number of re-checked functions: 1): 0.087s
+2025-03-24 11:20:13 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:20:13 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:20:13 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.087s
+2025-03-24 11:20:13 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:20:15 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:20:15 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:20:15 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:20:15 INFO Repopulating the environment...
+2025-03-24 11:20:15 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:20:15 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:20:15 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:20:15 MEMORY Shared memory size (size: 0)
+2025-03-24 11:20:15 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 0, number of re-checked functions: 0): 0.071s
+2025-03-24 11:20:15 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:20:15 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:20:15 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.071s
+2025-03-24 11:20:15 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:27:47 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:27:47 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:27:47 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:27:47 INFO Repopulating the environment...
+2025-03-24 11:27:47 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:27:47 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:27:47 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:27:47 MEMORY Shared memory size (size: 0)
+2025-03-24 11:27:47 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 1, number of re-checked functions: 1): 0.535s
+2025-03-24 11:27:47 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:27:47 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:27:47 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.535s
+2025-03-24 11:27:47 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:28:23 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:28:23 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:28:23 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:28:23 INFO Repopulating the environment...
+2025-03-24 11:28:23 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:28:23 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:28:23 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:28:23 MEMORY Shared memory size (size: 0)
+2025-03-24 11:28:23 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 1, number of re-checked functions: 1): 0.479s
+2025-03-24 11:28:23 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:28:23 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:28:23 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.479s
+2025-03-24 11:28:23 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:31:50 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:31:50 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:31:50 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:31:50 INFO Repopulating the environment...
+2025-03-24 11:31:50 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:31:50 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:31:50 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:31:50 MEMORY Shared memory size (size: 0)
+2025-03-24 11:31:50 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 1, number of re-checked functions: 1): 0.570s
+2025-03-24 11:31:50 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:31:50 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:31:50 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.571s
+2025-03-24 11:31:50 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:32:11 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:32:11 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:11 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:11 INFO Repopulating the environment...
+2025-03-24 11:32:11 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:32:11 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:32:11 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:32:11 MEMORY Shared memory size (size: 0)
+2025-03-24 11:32:11 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 1, number of re-checked functions: 1): 0.080s
+2025-03-24 11:32:11 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:11 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:11 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.081s
+2025-03-24 11:32:11 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:32:30 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:32:30 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:30 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:30 INFO Repopulating the environment...
+2025-03-24 11:32:30 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:32:30 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:32:30 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:32:30 MEMORY Shared memory size (size: 0)
+2025-03-24 11:32:30 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 1, number of re-checked functions: 1): 0.462s
+2025-03-24 11:32:30 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:30 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:30 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.463s
+2025-03-24 11:32:30 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:32:30 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:32:30 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:30 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:31 INFO Repopulating the environment...
+2025-03-24 11:32:31 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:32:31 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:32:31 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:32:31 MEMORY Shared memory size (size: 0)
+2025-03-24 11:32:31 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 0, number of re-checked functions: 0): 0.048s
+2025-03-24 11:32:31 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:31 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:31 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.048s
+2025-03-24 11:32:31 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:32:42 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:32:42 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:42 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:42 INFO Repopulating the environment...
+2025-03-24 11:32:42 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:32:42 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:32:42 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:32:42 MEMORY Shared memory size (size: 0)
+2025-03-24 11:32:42 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 1, number of re-checked functions: 1): 0.083s
+2025-03-24 11:32:42 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:42 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:42 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.084s
+2025-03-24 11:32:42 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:32:51 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:32:51 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:51 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:51 INFO Repopulating the environment...
+2025-03-24 11:32:51 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:32:51 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:32:51 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:32:51 WARNING Parser error in module `testandoGray_opencv`: expected an indented block after 'if' statement on line 26
+2025-03-24 11:32:52 MEMORY Shared memory size (size: 0)
+2025-03-24 11:32:52 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 1, number of re-checked functions: 1): 0.521s
+2025-03-24 11:32:52 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:52 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:52 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.521s
+2025-03-24 11:32:52 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:32:53 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:32:53 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:53 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:53 INFO Repopulating the environment...
+2025-03-24 11:32:53 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:32:53 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:32:53 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:32:53 MEMORY Shared memory size (size: 0)
+2025-03-24 11:32:53 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 1, number of re-checked functions: 1): 0.456s
+2025-03-24 11:32:53 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:53 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:32:53 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.457s
+2025-03-24 11:32:53 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:33:06 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:33:06 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:33:06 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:33:06 INFO Repopulating the environment...
+2025-03-24 11:33:06 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:33:06 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:33:06 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:33:06 MEMORY Shared memory size (size: 0)
+2025-03-24 11:33:06 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 1, number of re-checked functions: 1): 0.078s
+2025-03-24 11:33:06 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:33:06 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:33:06 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.078s
+2025-03-24 11:33:06 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:33:09 SERVER Processing request (IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))...
+2025-03-24 11:33:09 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:33:09 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:33:09 INFO Repopulating the environment...
+2025-03-24 11:33:09 SERVER Explicit Module Update: (explicit_updates((Changed((raw((relative testandoGray_opencv.py)(priority 53)))(qualifier(testandoGray_opencv))(should_type_check true)))))
+2025-03-24 11:33:09 SERVER Implicit Module Update: (implicit_updates())
+2025-03-24 11:33:09 PERFORMANCE Module tracker updated: 0.000s
+2025-03-24 11:33:09 MEMORY Shared memory size (size: 0)
+2025-03-24 11:33:09 PERFORMANCE Incremental check (number of changed files: 1, number of module tracker updates: 1, number of parser updates: 1, number of rechecked modules: 0, number of re-checked functions: 0): 0.076s
+2025-03-24 11:33:09 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:33:09 SERVER Update sent to subscription `persistent_10870`
+2025-03-24 11:33:09 PERFORMANCE Server request (binary_version: d1ea05c3d0b5c6a8b2e114ba42fb7b81e2f1f1a8, request kind: IncrementalCheck): 0.076s
+2025-03-24 11:33:09 SERVER Request `(IncrementalUpdate(/home/viana/Documents/udesc/pim/scripts/testandoGray_opencv.py))` processed
+2025-03-24 11:36:09 SERVER Connection closed
+2025-03-24 11:36:09 SERVER Subscription removed: persistent_10870
+2025-03-24 11:36:15 INFO Server interrupted with signal `sigterm`
+2025-03-24 11:36:15 INFO Server is going down. Cleaning up...
+2025-03-24 11:36:15 INFO Shutting down watchman connection...
+2025-03-24 11:36:15 INFO Server process get interrputed with signal sigterm

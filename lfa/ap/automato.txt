@@ -1,0 +1,18 @@
+Alfabeto: { a, b }
+Estados: { s0, s1, s2, s3, s4 }
+Estado inicial: s4
+Finais: { s4 }
+Auxiliar: { a, b }
+Transicoes:
+1: [s0, s0, a, $, a]
+2: [s0, s1, b, a, $]
+3: [s1, s1, b, a, $]
+4: [s1, s0, a, $, a]
+5: [s1, s4, $, $, $]
+6: [s2, s2, b, $, b]
+7: [s2, s3, a, b, $]
+8: [s3, s3, a, b, $]
+9: [s3, s2, b, $, b]
+10: [s3, s4, $, $, $]
+11: [s4, s0, a, $, a]
+12: [s4, s2, b, $, b]
